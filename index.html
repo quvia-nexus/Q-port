@@ -498,6 +498,290 @@ footer {
   * { animation: none !important; transition: none !important; }
 }
 
+
+/* =========================================================================
+   QPORT v2 — 편집 기능 확장 스타일
+   ========================================================================= */
+
+/* --- 편집모드 토글 버튼 (우측 하단 고정) --- */
+.edit-toggle {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 50;
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  border-radius: 999px;
+  padding: 12px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: var(--font-stamp);
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.edit-toggle .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #8a97a1;
+}
+body.edit-mode .edit-toggle { background: var(--coral); }
+body.edit-mode .edit-toggle .dot { background: #fff; }
+
+/* --- 편집모드일 때만 보이는 요소들 --- */
+.edit-only { display: none; }
+body.edit-mode .edit-only { display: inline-flex; }
+body.edit-mode .edit-only.block { display: block; }
+body.edit-mode .edit-only.grid { display: grid; }
+
+.icon-btn {
+  border: 1px solid rgba(20,41,59,0.2);
+  background: #fff;
+  border-radius: 8px;
+  width: 30px; height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  line-height: 1;
+}
+.icon-btn.danger { border-color: #E76F51; color: #E76F51; }
+.icon-btn:hover { background: var(--mist); }
+
+.add-card-btn {
+  border: 2px dashed var(--tide);
+  background: transparent;
+  color: var(--tide);
+  border-radius: var(--radius);
+  padding: 18px;
+  font-weight: 700;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 90px;
+}
+.add-card-btn:hover { background: var(--mist); }
+
+.card-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+/* --- 모달 --- */
+.qp-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20,41,59,0.55);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 20px;
+}
+.qp-overlay.open { display: flex; }
+
+.qp-modal {
+  background: var(--paper);
+  border-radius: var(--radius);
+  max-width: 480px;
+  width: 100%;
+  max-height: 88vh;
+  overflow-y: auto;
+  padding: 24px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.qp-modal h3 {
+  font-family: var(--font-display);
+  margin: 0 0 16px;
+  font-size: 19px;
+}
+
+.qp-field { margin-bottom: 14px; }
+.qp-field label {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: var(--ink-soft);
+}
+.qp-field input[type="text"],
+.qp-field input[type="date"],
+.qp-field input[type="url"],
+.qp-field select,
+.qp-field textarea {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid rgba(20,41,59,0.25);
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  background: #fff;
+}
+.qp-field textarea { min-height: 70px; resize: vertical; }
+
+.qp-modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 18px;
+}
+
+.qp-btn {
+  padding: 9px 18px;
+  border-radius: 999px;
+  border: none;
+  font-weight: 700;
+  font-size: 13.5px;
+}
+.qp-btn.primary { background: var(--coral); color: #fff; }
+.qp-btn.ghost { background: transparent; border: 1px solid var(--ink-soft); color: var(--ink); }
+
+/* --- 프로필 편집 --- */
+.profile-edit-btn { margin-top: 14px; }
+.avatar-upload-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.avatar-upload-row label.qp-btn { cursor: pointer; }
+
+/* --- 작품/폴더 카드 안 액션 위치 --- */
+.work-card, .tool-card { position: relative; }
+
+/* --- 항해일지(독서탐구) 접이식 카드 --- */
+.log-entry.collapsible { cursor: pointer; }
+.log-entry .log-brief { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.log-entry .log-date { font-family: var(--font-stamp); font-size: 12px; color: var(--ink-soft); white-space: nowrap; }
+.log-detail { display: none; margin-top: 10px; border-top: 1px dashed rgba(20,41,59,0.15); padding-top: 10px; }
+.log-entry.open .log-detail { display: block; }
+.log-toggle-hint { font-size: 11.5px; color: var(--tide); font-family: var(--font-stamp); }
+
+.book-tabs { display: flex; gap: 8px; margin: 18px 0 10px; flex-wrap: wrap; }
+.book-tab-btn {
+  border: 1px solid var(--tide);
+  background: transparent;
+  color: var(--tide);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.book-tab-btn.active { background: var(--tide); color: #fff; }
+.book-list-item { font-size: 13.5px; margin-bottom: 4px; }
+.official-links { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+.official-link {
+  font-size: 12.5px;
+  font-weight: 700;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 6px 12px;
+  border-radius: 999px;
+  text-decoration: none;
+}
+
+/* --- 나침반: 폴더 --- */
+.folder-block { margin-bottom: 28px; }
+.folder-title {
+  font-family: var(--font-stamp);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--ink);
+  background: var(--brass);
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: 6px 6px 0 0;
+  margin-bottom: 0;
+}
+.folder-body {
+  border: 2px solid var(--brass);
+  border-radius: 0 12px 12px 12px;
+  padding: 16px;
+}
+.folder-empty { font-size: 13px; color: var(--ink-soft); }
+
+/* --- 도구상자: 사전 검색 --- */
+.dict-search-row { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+.dict-search-row input {
+  flex: 1;
+  min-width: 180px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--ink-soft);
+  font-size: 13.5px;
+}
+.dict-search-row button {
+  background: var(--tide);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 0 18px;
+  font-weight: 700;
+  font-size: 13px;
+}
+.dict-result {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  box-shadow: var(--shadow);
+  margin-bottom: 16px;
+  font-size: 13.5px;
+}
+.dict-result .dr-word { font-family: var(--font-display); font-weight: 700; font-size: 18px; color: var(--tide); }
+.dict-result .dr-phonetic { color: var(--ink-soft); font-size: 12.5px; margin-left: 6px; }
+.dict-result .dr-meaning { margin: 6px 0 2px; }
+.dict-result .dr-example { font-style: italic; color: var(--ink-soft); }
+.dict-status { font-size: 13px; color: var(--ink-soft); margin-bottom: 12px; }
+
+.subtabs.level-tabs .subtab-btn { }
+
+/* --- 데이터 저장/내보내기 패널 --- */
+.data-panel {
+  background: var(--mist);
+  border-radius: var(--radius);
+  padding: 18px;
+  margin-top: 30px;
+  font-size: 13px;
+}
+.data-panel h3 { font-family: var(--font-display); font-size: 15px; margin: 0 0 8px; }
+.data-panel textarea {
+  width: 100%;
+  min-height: 110px;
+  font-family: var(--font-stamp);
+  font-size: 11px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(20,41,59,0.2);
+}
+.data-panel .row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 26px;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--ink);
+  color: var(--paper);
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-family: var(--font-stamp);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.25s ease;
+  z-index: 200;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+@media (max-width: 560px) {
+  .qp-modal { padding: 18px; }
+}
+
 </style>
 </head>
 <body>
@@ -517,13 +801,23 @@ footer {
     </svg>
 
     <div class="passport-card">
-      <div class="passport-avatar" id="passport-avatar">🧭</div>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
+        <div class="passport-avatar" id="passport-avatar">🧭</div>
+        <div class="avatar-upload-row edit-only">
+          <label class="qp-btn ghost" style="font-size:11.5px;padding:6px 10px;">
+            📷 사진 업로드
+            <input type="file" id="photo-input" accept="image/*" style="display:none;">
+          </label>
+          <button class="qp-btn ghost" id="remove-photo-btn" style="font-size:11.5px;padding:6px 10px;">사진 삭제</button>
+        </div>
+      </div>
       <div class="passport-info">
         <p class="label">Q-PORT · 탐험가 여권</p>
         <h1 id="passport-name">이름</h1>
         <p class="nickname" id="passport-nickname"></p>
         <p class="passport-meta" id="passport-meta"></p>
         <div class="dream-tags" id="dream-tags"></div>
+        <button class="qp-btn ghost profile-edit-btn edit-only" id="edit-profile-btn">✏️ 내 정보 수정</button>
       </div>
     </div>
   </header>
@@ -531,7 +825,7 @@ footer {
   <nav class="stamp-nav">
     <button class="stamp-tab active" data-target="sec-home"><span class="icon">🛳️</span>나의 항구</button>
     <button class="stamp-tab" data-target="sec-works"><span class="icon">🧰</span>작품 창고</button>
-    <button class="stamp-tab" data-target="sec-reading"><span class="icon">📖</span>항해일지</button>
+    <button class="stamp-tab" data-target="sec-reading"><span class="icon">📖</span>독서탐구</button>
     <button class="stamp-tab" data-target="sec-links"><span class="icon">🧭</span>나침반</button>
     <button class="stamp-tab" data-target="sec-tools"><span class="icon">🎒</span>도구상자</button>
   </nav>
@@ -569,196 +863,314 @@ footer {
       <div class="card-grid" id="works-grid"></div>
     </section>
 
-    <!-- 3. 항해일지 (독서기록) -->
+    <!-- 3. 독서탐구 -->
     <section id="sec-reading" class="section">
-      <h2 class="section-title">📖 탐구 항해일지</h2>
-      <p class="section-sub">학기별 독서 기록이에요. 도서명·저자를 기록해두면 학교 독서활동 기록에도 활용할 수 있어요.</p>
+      <h2 class="section-title">📖 독서탐구</h2>
+      <p class="section-sub">책 제목·저자·날짜만 보이고, 카드를 누르면 감상문을 자세히 볼 수 있어요.</p>
 
       <div id="reading-log-wrap"></div>
 
       <div class="recommend-box">
-        <h3>📚 학년별 추천도서 (참고용)</h3>
+        <h3>📚 학년별 추천도서</h3>
+        <div class="book-tabs">
+          <button class="book-tab-btn active" data-grade="초등학생">초등학생</button>
+          <button class="book-tab-btn" data-grade="중학생">중학생</button>
+          <button class="book-tab-btn" data-grade="고등학생">고등학생</button>
+        </div>
         <div id="recommend-list"></div>
-        <p class="disclaimer">※ 위 목록은 예시입니다. 실제 도서는 학교·교육부·시도교육청 추천도서 목록이나 도서관정보나루 등에서 학년에 맞게 확인해 data.js를 바꿔서 사용하세요.</p>
+        <div class="official-links">
+          <a class="official-link" href="https://reading.go.kr" target="_blank" rel="noopener">📘 독서로(교육부·시도교육청)</a>
+          <a class="official-link" href="https://www.nlcy.go.kr" target="_blank" rel="noopener">📗 국립어린이청소년도서관 사서추천도서</a>
+        </div>
+        <p class="disclaimer">※ 위 목록은 국내에서 널리 추천되는 도서 예시입니다. 최신·상세 목록은 위 공식 사이트에서 학년에 맞게 확인해보세요.</p>
       </div>
     </section>
 
-    <!-- 4. 나침반 (링크) -->
+    <!-- 4. 나침반 -->
     <section id="sec-links" class="section">
       <h2 class="section-title">🧭 나침반</h2>
-      <p class="section-sub">자주 방문하는 사이트로 바로 이동해요.</p>
-      <div class="card-grid" id="links-grid"></div>
+      <p class="section-sub">자주 방문하는 사이트를 폴더별로 모아봤어요.</p>
+      <div id="links-wrap"></div>
     </section>
 
     <!-- 5. 도구상자 -->
     <section id="sec-tools" class="section">
       <h2 class="section-title">🎒 탐구 도구상자</h2>
-      <p class="section-sub">영어 단어와 수학 공식을 검색해서 찾아봐요.</p>
+      <p class="section-sub">영어 단어는 실제 사전에서 검색하고, 수학 개념은 학교급별로 찾아볼 수 있어요.</p>
 
-      <h3 style="font-family:var(--font-display); font-size:16px;">🔤 영어 단어장</h3>
-      <input class="tool-search" id="word-search" type="text" placeholder="단어나 뜻으로 검색해보세요">
+      <h3 style="font-family:var(--font-display); font-size:16px;">🔤 영어 단어 검색</h3>
+      <form class="dict-search-row" id="dict-search-form">
+        <input type="text" id="dict-input" placeholder="영어 단어를 입력해보세요 (예: adventure)">
+        <button type="submit">검색</button>
+      </form>
+      <p class="dict-status" id="dict-status"></p>
+      <div id="dict-result"></div>
+
+      <h4 style="font-family:var(--font-display); font-size:14px; margin-top:24px;">📒 내 단어장</h4>
       <div id="wordbook-wrap" style="margin-bottom:32px;"></div>
 
-      <h3 style="font-family:var(--font-display); font-size:16px;">📐 수학 공식노트</h3>
-      <input class="tool-search" id="math-search" type="text" placeholder="공식 이름으로 검색해보세요">
+      <h3 style="font-family:var(--font-display); font-size:16px;">📐 수학 개념 · 공식노트 <span style="font-size:11px;color:var(--ink-soft);">(2026학년도 교육과정 기준)</span></h3>
+      <div class="subtabs level-tabs">
+        <button class="subtab-btn math-level-btn active" data-level="초등">초등</button>
+        <button class="subtab-btn math-level-btn" data-level="중등">중등</button>
+        <button class="subtab-btn math-level-btn" data-level="고등">고등</button>
+      </div>
       <div id="mathnotes-wrap"></div>
     </section>
 
   </main>
 
+  <div class="data-panel edit-only block">
+    <h3>💾 백업 (선택 사항)</h3>
+    <p>이제 저장 버튼을 누르면 Firebase에 자동으로 저장되고, 선생님도 바로 확인할 수 있어요! 아래 기능은 만약을 위한 백업용입니다.</p>
+    <textarea id="export-code" readonly></textarea>
+    <div class="row">
+      <button class="qp-btn primary" id="copy-export-btn">📋 현재 데이터 코드 복사</button>
+      <button class="qp-btn ghost" id="download-backup-btn">⬇️ 백업 파일(JSON) 다운로드</button>
+      <label class="qp-btn ghost" style="cursor:pointer;">⬆️ 백업 불러오기
+        <input type="file" id="import-backup-input" accept="application/json" style="display:none;">
+      </label>
+    </div>
+  </div>
+
   <footer>Q-PORT · Quvia-Lab 학생 포트폴리오 템플릿</footer>
 
-  <!-- ======================================================================
-       ✏️✏️✏️  여기서부터 "내 정보 수정하는 곳" 시작! ✏️✏️✏️
-       (Ctrl+F 로 "여기서부터"를 검색하면 이 위치로 바로 올 수 있어요)
-       ====================================================================== -->
+  <button class="edit-toggle" id="edit-toggle"><span class="dot"></span> 편집 모드 <span id="conn-status" style="opacity:0.8;font-weight:400;">·연결 중...</span></button>
+  <div class="qp-overlay" id="qp-overlay"></div>
+  <div class="toast" id="toast"></div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
   <script>
 /* =========================================================================
-   ✏️  이 <script> 안의 내용만 고치면 홈페이지 내용이 바뀝니다!
+   ✏️✏️✏️  여기서부터 "내 정보 수정하는 곳" 시작! ✏️✏️✏️
    -------------------------------------------------------------------------
-   ⚠️ 이 <script> 밖의 코드(위/아래)는 건드리지 않아도 됩니다.
-   ⚠️ 이 파일은 자바스크립트라서 // 뒤에 설명(주석)을 자유롭게 써도 안전해요.
-   ⚠️ 항목을 추가할 땐 { ... } 덩어리를 통째로 복사해서 붙여넣고 내용만 바꾸세요.
-   ⚠️ 쉼표(,) 하나만 빠뜨려도 화면이 안 나올 수 있어요. 마지막 항목에는
-      쉼표를 넣지 않는 걸 헷갈리면, 그냥 매 줄 끝에 쉼표를 붙여도 괜찮습니다.
+   ⚠️ 이 DEFAULT_DATA는 "인터넷이 안 되거나 Firebase 연결에 실패했을 때"
+      보여줄 예비용 기본 내용이에요. 평소에는 Firebase Firestore에 저장된
+      내용을 불러옵니다.
+   ⚠️ 학생마다 다른 STUDENT_ID를 꼭 설정해주세요! (겹치면 서로 데이터를
+      덮어씁니다) 영어 소문자, 숫자, 하이픈(-)만 사용하세요.
+      예: "kim-hogi", "student-01"
+   ⚠️ FIREBASE_CONFIG 는 Firebase 콘솔 > 프로젝트 설정 > 내 앱에서 복사한
+      값을 그대로 붙여넣으면 됩니다.
    ========================================================================= */
 
-window.QPORT_DATA = {
+const STUDENT_ID = "student-01";  // 👈 학생마다 반드시 다르게 설정!
 
-  /* ---------------------------------------------------------------------
-     1. 나의 항구 — 프로필
-     --------------------------------------------------------------------- */
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyAYt80OSIZpQR79kYhyRhRg73wQ7RRNhNU",
+  authDomain: "quvia-qport.firebaseapp.com",
+  projectId: "quvia-qport",
+  storageBucket: "quvia-qport.firebasestorage.app",
+  messagingSenderId: "975180912147",
+  appId: "1:975180912147:web:c6ec52133291717d8951e6",
+  measurementId: "G-6B8LSK4R2X"
+};
+
+const DEFAULT_DATA = {
+
   profile: {
-    name: "김탐구",              // 이름 (비공개로 하고 싶으면 별명만 써도 됨)
-    nickname: "호기심 대장",      // 별명 (메인으로 크게 보여줘요)
-    avatarEmoji: "🧑‍🚀",         // 프로필 대신 쓸 이모지 (원하는 걸로 교체 가능)
-    startDate: "2025-03-02",     // 생년월일 대신: 탐구를 시작한 날짜
-    school: "6학년",             // 학년 (실명 학교는 안 적는 걸 추천)
-    dreams: ["게임 개발자", "로봇공학자", "웹 디자이너"], // 나의 꿈(진로) 태그, 최대 3개 추천
+    name: "김탐구",
+    nickname: "호기심 대장",
+    avatarEmoji: "🧑‍🚀",
+    photo: null,              // 사진을 업로드하면 여기 자동으로 채워져요 (이모지보다 우선 표시)
+    startDate: "2025-03-02",
+    school: "6학년",
+    dreams: ["게임 개발자", "로봇공학자", "웹 디자이너"],
     dreamNote: "내가 만든 게임을 친구들이 재미있게 플레이하는 걸 보고 싶어요!"
   },
 
-  /* ---------------------------------------------------------------------
-     2. 작품 창고 — 내가 만든 웹 작품
-     category: "교과" 또는 "교과외" 만 사용하세요.
-     --------------------------------------------------------------------- */
   works: [
     {
-      title: "구구단 연습기",
-      category: "교과",
-      subject: "수학",
+      id: "w1", title: "구구단 연습기", category: "교과", subject: "수학",
       desc: "숫자를 누르면 구구단 문제가 랜덤으로 나오는 연습 웹앱",
-      skills: ["HTML", "JavaScript"],
-      date: "2026-05-12",
+      skills: ["HTML", "JavaScript"], date: "2026-05-12",
       url: "https://example.com/gugudan",
-      note: "처음엔 정답 확인 버튼이 안 눌려서 힘들었는데, 이벤트 연결을 다시 배워서 해결했어요."
+      note: "정답 확인 버튼이 안 눌려서 힘들었는데, 이벤트 연결을 다시 배워서 해결했어요."
     },
     {
-      title: "나만의 우주 탐험 게임",
-      category: "교과외",
-      subject: "자유주제",
+      id: "w2", title: "나만의 우주 탐험 게임", category: "교과외", subject: "자유주제",
       desc: "화살표 키로 우주선을 조종해서 운석을 피하는 캔버스 게임",
-      skills: ["HTML", "Canvas", "JavaScript"],
-      date: "2026-06-20",
+      skills: ["HTML", "Canvas", "JavaScript"], date: "2026-06-20",
       url: "https://example.com/space-game",
       note: "충돌 판정을 처음 만들어봤어요. 좌표 계산이 신기했어요."
     }
-    // 👆 새 작품을 추가하려면 위 { ... } 를 복사해서 붙여넣고 내용만 바꾸세요.
   ],
 
-  /* ---------------------------------------------------------------------
-     3. 항해일지 — 독서 기록
-     생활기록부 '독서활동상황' 방식(학기 단위 + 도서명 + 저자)에 맞춰
-     설계했어요. 선생님께 보여드릴 때도 그대로 쓸 수 있어요.
-     --------------------------------------------------------------------- */
   readingLog: [
     {
-      semester: "2026-1학기",
-      title: "아름다운 아이",
-      author: "R.J. 팔라시오",
-      subjectLink: "국어",     // 교과 연계 (국어/수학/과학/사회/자유)
-      period: "2026-03-05 ~ 2026-03-20",
-      impact: "겉모습보다 마음이 중요하다는 걸 다시 생각하게 됐어요.",
-      extendedActivity: "" // 이 책을 읽고 만든 웹앱/발표가 있으면 제목을 적어보세요
+      id: "r1", semester: "2026-1학기", title: "아름다운 아이", author: "R.J. 팔라시오",
+      date: "2026-03-20", subjectLink: "국어",
+      impact: "겉모습보다 마음이 중요하다는 걸 다시 생각하게 됐어요. 어거스트가 학교에서 겪는 일들을 보면서 다른 사람을 함부로 판단하지 말아야겠다고 느꼈어요.",
+      extendedActivity: ""
     },
     {
-      semester: "2026-1학기",
-      title: "메이커의 시대",
-      author: "크리스 앤더슨",
-      subjectLink: "자유",
-      period: "2026-04-01 ~ 2026-04-15",
-      impact: "아이디어를 직접 만들어보는 것의 중요성을 느꼈어요.",
+      id: "r2", semester: "2026-1학기", title: "메이커의 시대", author: "크리스 앤더슨",
+      date: "2026-04-15", subjectLink: "자유",
+      impact: "아이디어를 직접 만들어보는 것이 왜 중요한지 느꼈어요. 이 책을 읽고 나서 직접 게임을 만들어보고 싶어졌어요.",
       extendedActivity: "나만의 우주 탐험 게임 제작에 영감을 줌"
     }
-    // 👆 새 독서 기록을 추가하려면 위 { ... } 를 복사해서 붙여넣으세요.
   ],
 
-  /* ---------------------------------------------------------------------
-     학년별 추천도서 참고 목록 (예시입니다!)
-     ⚠️ 아래 목록은 예시 구성입니다. 실제 도서는 학교/교육부·시도교육청
-     추천도서 목록이나 "도서관정보나루", "학교도서관저널" 등에서 학년에
-     맞게 확인한 뒤 이 배열의 내용을 바꿔서 쓰세요.
-     --------------------------------------------------------------------- */
+  /* 학년별 추천도서 참고 목록 — 국내에서 널리 추천되는 실제 도서 예시입니다.
+     최신 목록은 아래 official 링크(독서로/국립어린이청소년도서관)에서 학년에
+     맞게 확인 후 필요하면 바꿔서 쓰세요. */
   recommendedBooks: {
-    "초3-4학년": ["소나기밥 아줌마", "잘못 걸린 전화", "마당을 나온 암탉"],
-    "초5-6학년": ["아몬드", "우아한 거짓말", "긴긴밤"],
-    "중1-3학년": ["아름다운 아이", "완득이", "페인트"]
+    "초등학생": [
+      "마당을 나온 암탉 – 황선미",
+      "몽실언니 – 권정생",
+      "나는 3학년 2반 7번 애벌레 – 김원아",
+      "잘못 걸린 전화 – 빌 브리튼",
+      "무기 팔지 마세요! – 위기철"
+    ],
+    "중학생": [
+      "완득이 – 김려령",
+      "우아한 거짓말 – 김려령",
+      "아몬드 – 손원평",
+      "페인트 – 이희영",
+      "소나기 – 황순원"
+    ],
+    "고등학생": [
+      "동물농장 – 조지 오웰",
+      "1984 – 조지 오웰",
+      "난장이가 쏘아올린 작은 공 – 조세희",
+      "우리들의 일그러진 영웅 – 이문열",
+      "파리대왕 – 윌리엄 골딩"
+    ]
   },
 
-  /* ---------------------------------------------------------------------
-     4. 나침반 — 자주 방문하는 사이트
-     --------------------------------------------------------------------- */
+  linkFolders: ["일반", "인공지능"],
   links: [
-    { title: "큐비아 탐구학원", icon: "🏠", url: "https://www.quvia-lab.com" },
-    { title: "코드잇/엔트리", icon: "🧩", url: "https://playentry.org" },
-    { title: "학교 홈페이지", icon: "🏫", url: "https://example.com" }
-    // 👆 새 바로가기를 추가하려면 위 { ... } 를 복사해서 붙여넣으세요.
+    { id: "l1", folder: "일반", title: "큐비아 탐구학원", icon: "🏠", url: "https://www.quvia-lab.com" }
   ],
 
-  /* ---------------------------------------------------------------------
-     5. 탐구 도구상자 — 영어 단어장 / 수학 공식노트
-     --------------------------------------------------------------------- */
   wordbook: [
-    { word: "curious", meaning: "호기심 많은", example: "I'm curious about how rockets fly." },
-    { word: "explore", meaning: "탐험하다", example: "We explore new ideas every day." }
-    // 👆 새 단어를 추가하려면 위 { ... } 를 복사해서 붙여넣으세요.
+    { id: "wb1", word: "curious", meaning: "호기심 많은", example: "I'm curious about how rockets fly." },
+    { id: "wb2", word: "explore", meaning: "탐험하다", example: "We explore new ideas every day." }
   ],
 
+  /* level: "초등" | "중등" | "고등" — 2022 개정 교육과정(2026학년도 중1·2, 고1·2 적용) 기준 */
   mathNotes: [
-    {
-      formula: "a² + b² = c²",
-      name: "피타고라스 정리",
-      when: "직각삼각형에서 두 변의 길이로 나머지 한 변을 구할 때",
-      relatedWork: "" // 관련해서 만든 웹앱 제목이 있으면 적어보세요
-    },
-    {
-      formula: "원의 넓이 = π × r²",
-      name: "원의 넓이 공식",
-      when: "반지름을 알 때 원의 넓이를 구할 때",
-      relatedWork: "구구단 연습기"
-    }
-    // 👆 새 공식을 추가하려면 위 { ... } 를 복사해서 붙여넣으세요.
+    { id: "m1", level: "초등", name: "직사각형의 넓이", formula: "넓이 = 가로 × 세로", when: "직사각형 모양의 넓이를 구할 때", relatedWork: "" },
+    { id: "m2", level: "초등", name: "삼각형의 넓이", formula: "넓이 = 밑변 × 높이 ÷ 2", when: "삼각형 모양의 넓이를 구할 때", relatedWork: "" },
+    { id: "m3", level: "초등", name: "원의 넓이", formula: "넓이 = 반지름 × 반지름 × 3.14", when: "원 모양의 넓이를 구할 때", relatedWork: "구구단 연습기" },
+    { id: "m4", level: "초등", name: "비와 비율", formula: "비율 = 비교하는 양 ÷ 기준량", when: "두 양을 비교할 때 (예: 축척, 백분율)", relatedWork: "" },
+    { id: "m5", level: "중등", name: "피타고라스 정리", formula: "a² + b² = c²", when: "직각삼각형에서 한 변의 길이를 구할 때", relatedWork: "" },
+    { id: "m6", level: "중등", name: "인수분해 (완전제곱 꼴)", formula: "x² + (a+b)x + ab = (x+a)(x+b)", when: "이차식을 두 일차식의 곱으로 나타낼 때", relatedWork: "" },
+    { id: "m7", level: "중등", name: "이차방정식의 근의 공식", formula: "x = (-b ± √(b²-4ac)) / 2a", when: "이차방정식 ax²+bx+c=0 의 해를 구할 때", relatedWork: "" },
+    { id: "m8", level: "중등", name: "일차함수", formula: "y = ax + b", when: "두 변수 사이의 일정한 변화 관계를 나타낼 때", relatedWork: "" },
+    { id: "m9", level: "고등", name: "나머지 정리 (공통수학1)", formula: "다항식 P(x)를 (x-a)로 나눈 나머지 = P(a)", when: "다항식을 일차식으로 나눈 나머지를 빠르게 구할 때", relatedWork: "" },
+    { id: "m10", level: "고등", name: "원의 방정식 (공통수학2)", formula: "(x-a)² + (y-b)² = r²", when: "중심 (a,b), 반지름 r인 원을 좌표평면에 나타낼 때", relatedWork: "" },
+    { id: "m11", level: "고등", name: "로그의 정의 (대수)", formula: "log_a N = x ⟺ aˣ = N", when: "지수 방정식을 풀거나 큰 수를 다룰 때", relatedWork: "" },
+    { id: "m12", level: "고등", name: "미분계수 (미적분Ⅰ)", formula: "f'(x) = lim(h→0) [f(x+h) - f(x)] / h", when: "곡선의 한 점에서 순간 변화율(기울기)을 구할 때", relatedWork: "" },
+    { id: "m13", level: "고등", name: "조합 (확률과 통계)", formula: "nCr = n! / (r!(n-r)!)", when: "순서 없이 n개 중 r개를 뽑는 경우의 수를 구할 때", relatedWork: "" },
+    { id: "m14", level: "고등", name: "두 점 사이의 거리 (기하)", formula: "d = √((x₂-x₁)² + (y₂-y₁)²)", when: "좌표평면 위 두 점 사이의 거리를 구할 때", relatedWork: "" }
   ]
 };
 
-</script>
-  <!-- ======================================================================
-       ✅ 여기까지가 "내 정보 수정하는 곳" 끝!
-       이 아래 코드는 화면을 그려주는 부분이라 평소엔 건드릴 필요 없어요.
-       ====================================================================== -->
+/* ======================================================================
+   ✅ 여기까지가 "내 정보 수정하는 곳" 끝!
+   이 아래 코드는 Firebase 연결, 화면 그리기, 편집 기능을 동작시키는
+   부분이라 평소엔 건드릴 필요 없어요.
+   ====================================================================== */
 
-  <script>
-/* =========================================================================
-   QPORT — 렌더링 스크립트 (화면을 그려주는 코드, 평소엔 건드리지 않아도 됨)
-   ========================================================================= */
+const STORAGE_KEY = "qport_data_v2_" + STUDENT_ID;
+let DATA = null;
+let db = null;
+let firebaseReady = false;
 
-const D = window.QPORT_DATA;
+function initFirebase() {
+  try {
+    firebase.initializeApp(FIREBASE_CONFIG);
+    db = firebase.firestore();
+    firebaseReady = true;
+  } catch (e) {
+    console.error("Firebase 초기화 실패:", e);
+    firebaseReady = false;
+  }
+}
 
-/* ---------- 유틸 ---------- */
+function loadLocalCache() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch (e) { /* 손상된 캐시 무시 */ }
+  return null;
+}
+
+function cacheLocally(data) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch (e) { /* 저장공간 부족 등 무시 */ }
+}
+
+async function loadData() {
+  setConnStatus("연결 중...");
+  if (firebaseReady) {
+    try {
+      const doc = await db.collection("qport_students").doc(STUDENT_ID).get();
+      if (doc.exists) {
+        setConnStatus("☁️ 온라인");
+        const data = doc.data();
+        cacheLocally(data);
+        return data;
+      } else {
+        // 이 학생의 첫 방문 → 기본값으로 새 문서 생성
+        const seed = JSON.parse(JSON.stringify(DEFAULT_DATA));
+        await db.collection("qport_students").doc(STUDENT_ID).set(seed);
+        setConnStatus("☁️ 온라인 (새로 시작)");
+        cacheLocally(seed);
+        return seed;
+      }
+    } catch (e) {
+      console.error("Firestore 불러오기 실패:", e);
+      setConnStatus("⚠️ 오프라인 (임시 저장본 표시 중)");
+    }
+  } else {
+    setConnStatus("⚠️ Firebase 설정이 안 되어있어요");
+  }
+  // Firebase 연결 실패 시: 이 브라우저의 이전 캐시 → 그것도 없으면 기본값
+  return loadLocalCache() || JSON.parse(JSON.stringify(DEFAULT_DATA));
+}
+
+async function saveData() {
+  cacheLocally(DATA);
+  renderAll();
+  if (firebaseReady) {
+    try {
+      await db.collection("qport_students").doc(STUDENT_ID).set(DATA);
+      setConnStatus("☁️ 온라인");
+      showToast("저장했어요 ✅ (선생님도 바로 확인 가능해요)");
+      return;
+    } catch (e) {
+      console.error("Firestore 저장 실패:", e);
+      setConnStatus("⚠️ 오프라인 (이 컴퓨터에만 임시 저장됨)");
+      showToast("⚠️ 인터넷 연결을 확인해주세요. 이 컴퓨터에만 임시 저장됐어요.");
+      return;
+    }
+  }
+  showToast("⚠️ Firebase 설정이 없어서 이 컴퓨터에만 저장돼요.");
+}
+
+function setConnStatus(text) {
+  const el = document.getElementById("conn-status");
+  if (el) el.textContent = text;
+}
+
+function uid(prefix) {
+  return prefix + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+}
+
 function el(html) {
   const t = document.createElement("template");
   t.innerHTML = html.trim();
   return t.content.firstElementChild;
+}
+
+function showToast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(showToast._timer);
+  showToast._timer = setTimeout(() => t.classList.remove("show"), 1800);
 }
 
 function daysSince(dateStr) {
@@ -767,10 +1179,65 @@ function daysSince(dateStr) {
   return Number.isFinite(diff) && diff >= 0 ? diff : 0;
 }
 
-/* ---------- 1. 프로필 ---------- */
+/* =========================================================================
+   범용 모달 (작품 / 링크 / 독서기록 / 단어 / 수학노트 폼에서 재사용)
+   ========================================================================= */
+const modalRoot = () => document.getElementById("qp-overlay");
+
+function openModal({ title, fields, values = {}, onSubmit, onDelete }) {
+  const overlay = modalRoot();
+  overlay.innerHTML = "";
+  const modal = el(`<div class="qp-modal"><h3>${title}</h3><div class="qp-fields"></div>
+    <div class="qp-modal-actions">
+      ${onDelete ? `<button type="button" class="qp-btn ghost" id="qp-delete-btn" style="margin-right:auto;color:#E76F51;">🗑 삭제</button>` : ""}
+      <button type="button" class="qp-btn ghost" id="qp-cancel-btn">취소</button>
+      <button type="button" class="qp-btn primary" id="qp-save-btn">저장</button>
+    </div></div>`);
+  const fieldsWrap = modal.querySelector(".qp-fields");
+
+  fields.forEach(f => {
+    const val = values[f.key] ?? f.default ?? "";
+    let inputHtml = "";
+    if (f.type === "select") {
+      inputHtml = `<select data-key="${f.key}">${f.options.map(o =>
+        `<option value="${o}" ${o === val ? "selected" : ""}>${o}</option>`).join("")}</select>`;
+    } else if (f.type === "textarea") {
+      inputHtml = `<textarea data-key="${f.key}" placeholder="${f.placeholder || ""}">${val}</textarea>`;
+    } else {
+      inputHtml = `<input type="${f.type || "text"}" data-key="${f.key}" value="${String(val).replace(/"/g, "&quot;")}" placeholder="${f.placeholder || ""}">`;
+    }
+    fieldsWrap.appendChild(el(`<div class="qp-field"><label>${f.label}</label>${inputHtml}</div>`));
+  });
+
+  overlay.appendChild(modal);
+  overlay.classList.add("open");
+
+  modal.querySelector("#qp-cancel-btn").onclick = () => overlay.classList.remove("open");
+  if (onDelete) modal.querySelector("#qp-delete-btn").onclick = () => { onDelete(); overlay.classList.remove("open"); };
+
+  modal.querySelector("#qp-save-btn").onclick = () => {
+    const out = {};
+    fields.forEach(f => {
+      const node = fieldsWrap.querySelector(`[data-key="${f.key}"]`);
+      out[f.key] = f.list ? node.value.split(",").map(s => s.trim()).filter(Boolean) : node.value;
+    });
+    onSubmit(out);
+    overlay.classList.remove("open");
+  };
+}
+
+document.addEventListener("click", (e) => {
+  if (e.target === modalRoot()) modalRoot().classList.remove("open");
+});
+
+/* =========================================================================
+   1. 나의 항구 — 프로필
+   ========================================================================= */
 function renderProfile() {
-  const p = D.profile;
-  document.getElementById("passport-avatar").textContent = p.avatarEmoji || "🧭";
+  const p = DATA.profile;
+  const avatarBox = document.getElementById("passport-avatar");
+  avatarBox.innerHTML = p.photo ? `<img src="${p.photo}" alt="프로필 사진">` : (p.avatarEmoji || "🧭");
+
   document.getElementById("passport-name").textContent = p.name || "탐험가";
   document.getElementById("passport-nickname").textContent = p.nickname ? `“${p.nickname}”` : "";
   document.getElementById("passport-meta").textContent =
@@ -779,46 +1246,126 @@ function renderProfile() {
   const tagWrap = document.getElementById("dream-tags");
   tagWrap.innerHTML = "";
   (p.dreams || []).forEach(d => tagWrap.appendChild(el(`<span class="dream-tag">🎯 ${d}</span>`)));
-
   document.getElementById("dream-note").textContent = p.dreamNote || "";
 
-  // 성장 요약 통계
-  document.getElementById("stat-works").textContent = (D.works || []).length;
-  document.getElementById("stat-books").textContent = (D.readingLog || []).length;
-  document.getElementById("stat-links").textContent = (D.links || []).length;
+  document.getElementById("stat-works").textContent = (DATA.works || []).length;
+  document.getElementById("stat-books").textContent = (DATA.readingLog || []).length;
+  document.getElementById("stat-links").textContent = (DATA.links || []).length;
 }
 
-/* ---------- 2. 작품 창고 ---------- */
-function renderWorks(filter = "전체") {
+function openProfileModal() {
+  const p = DATA.profile;
+  openModal({
+    title: "🛳️ 나의 항구 정보 수정",
+    values: { name: p.name, nickname: p.nickname, avatarEmoji: p.avatarEmoji, school: p.school, startDate: p.startDate, dreams: (p.dreams || []).join(", "), dreamNote: p.dreamNote },
+    fields: [
+      { key: "name", label: "이름 / 별명 앞에 쓸 이름" },
+      { key: "nickname", label: "별명" },
+      { key: "avatarEmoji", label: "이모티콘 (사진을 안 쓸 때 표시돼요)" },
+      { key: "school", label: "학년" },
+      { key: "startDate", label: "탐구 시작일", type: "date" },
+      { key: "dreams", label: "나의 꿈 (쉼표로 구분, 최대 3개 추천)", list: true },
+      { key: "dreamNote", label: "꿈 노트 (한 줄 소개)", type: "textarea" }
+    ],
+    onSubmit: (out) => {
+      Object.assign(DATA.profile, out);
+      saveData();
+    }
+  });
+}
+
+function handlePhotoUpload(file) {
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const img = new Image();
+    img.onload = () => {
+      const size = 200;
+      const canvas = document.createElement("canvas");
+      canvas.width = size; canvas.height = size;
+      const ctx = canvas.getContext("2d");
+      const s = Math.min(img.width, img.height);
+      ctx.drawImage(img, (img.width - s) / 2, (img.height - s) / 2, s, s, 0, 0, size, size);
+      DATA.profile.photo = canvas.toDataURL("image/jpeg", 0.8);
+      saveData();
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+/* =========================================================================
+   2. 작품 창고
+   ========================================================================= */
+let worksFilter = "전체";
+
+function renderWorks() {
   const grid = document.getElementById("works-grid");
   grid.innerHTML = "";
-  const list = (D.works || []).filter(w => filter === "전체" || w.category === filter);
-
-  if (list.length === 0) {
-    grid.appendChild(el(`<p class="section-sub">아직 등록된 작품이 없어요. data.js 의 works 배열에 추가해보세요!</p>`));
-    return;
-  }
+  const list = (DATA.works || []).filter(w => worksFilter === "전체" || w.category === worksFilter);
 
   list.forEach(w => {
     const badges = (w.skills || []).map(s => `<span class="badge">${s}</span>`).join("");
-    grid.appendChild(el(`
+    const card = el(`
       <div class="work-card">
         <h3>${w.title}</h3>
         <div class="badge-row"><span class="badge">${w.subject || w.category}</span>${badges}</div>
         <p class="desc">${w.desc || ""}</p>
         ${w.note ? `<p class="note">💬 ${w.note}</p>` : ""}
         ${w.url ? `<a class="open-link" href="${w.url}" target="_blank" rel="noopener">작품 열어보기 →</a>` : ""}
+        <div class="card-actions edit-only">
+          <button class="icon-btn edit-work" data-id="${w.id}">✏️</button>
+        </div>
       </div>
-    `));
+    `);
+    grid.appendChild(card);
+  });
+
+  grid.appendChild(el(`<button class="add-card-btn edit-only" id="add-work-btn">＋ 새 작품 추가</button>`));
+
+  grid.querySelectorAll(".edit-work").forEach(btn => {
+    btn.onclick = () => openWorkModal(DATA.works.find(w => w.id === btn.dataset.id));
   });
 }
 
-/* ---------- 3. 항해일지 (독서기록) ---------- */
+function openWorkModal(work) {
+  const isNew = !work;
+  openModal({
+    title: isNew ? "🧰 새 작품 추가" : "🧰 작품 수정",
+    values: work ? { ...work, skills: (work.skills || []).join(", ") } : {},
+    fields: [
+      { key: "title", label: "작품 제목" },
+      { key: "category", label: "구분", type: "select", options: ["교과", "교과외"] },
+      { key: "subject", label: "과목/주제" },
+      { key: "desc", label: "한 줄 소개", type: "textarea" },
+      { key: "skills", label: "사용 기술 (쉼표로 구분)", list: true },
+      { key: "url", label: "작품 링크(URL)", type: "url" },
+      { key: "date", label: "제작일", type: "date" },
+      { key: "note", label: "제작 후기", type: "textarea" }
+    ],
+    onDelete: isNew ? null : () => {
+      DATA.works = DATA.works.filter(w => w.id !== work.id);
+      saveData();
+    },
+    onSubmit: (out) => {
+      if (isNew) {
+        DATA.works.push({ id: uid("w"), ...out });
+      } else {
+        Object.assign(work, out);
+      }
+      saveData();
+    }
+  });
+}
+
+/* =========================================================================
+   3. 독서탐구 (구 항해일지)
+   ========================================================================= */
 function renderReadingLog() {
   const wrap = document.getElementById("reading-log-wrap");
   wrap.innerHTML = "";
   const bySemester = {};
-  (D.readingLog || []).forEach(r => {
+  (DATA.readingLog || []).forEach(r => {
     bySemester[r.semester] = bySemester[r.semester] || [];
     bySemester[r.semester].push(r);
   });
@@ -826,113 +1373,392 @@ function renderReadingLog() {
   Object.keys(bySemester).sort().forEach(sem => {
     wrap.appendChild(el(`<div class="log-semester">📖 ${sem}</div>`));
     bySemester[sem].forEach(r => {
-      wrap.appendChild(el(`
-        <div class="log-entry">
-          <div class="log-stamp">${r.subjectLink || "자유"}<br/>독서</div>
-          <div>
-            <h4>${r.title}</h4>
-            <p class="author">${r.author ? `저자: ${r.author}` : ""} ${r.period ? `· ${r.period}` : ""}</p>
+      const entry = el(`
+        <div class="log-entry collapsible" data-id="${r.id}">
+          <div class="log-brief">
+            <div>
+              <h4>${r.title}</h4>
+              <p class="author">저자: ${r.author || "-"}</p>
+            </div>
+            <span class="log-date">${r.date || ""}</span>
+          </div>
+          <p class="log-toggle-hint">👆 눌러서 독서 감상문 보기</p>
+          <div class="log-detail">
+            <p><strong>교과 연계:</strong> ${r.subjectLink || "자유"}</p>
             <p class="impact">${r.impact || ""}</p>
             ${r.extendedActivity ? `<p class="extended">🔗 확장 활동: ${r.extendedActivity}</p>` : ""}
+            <div class="card-actions edit-only">
+              <button class="icon-btn edit-log" data-id="${r.id}">✏️ 수정</button>
+            </div>
           </div>
         </div>
-      `));
+      `);
+      entry.addEventListener("click", (e) => {
+        if (e.target.closest(".edit-log")) return;
+        entry.classList.toggle("open");
+      });
+      wrap.appendChild(entry);
     });
   });
 
-  // 추천도서 참고 목록
-  const recBox = document.getElementById("recommend-list");
-  recBox.innerHTML = "";
-  const rec = D.recommendedBooks || {};
-  Object.keys(rec).forEach(grade => {
-    recBox.appendChild(el(`<div class="recommend-group"><b>${grade}</b> — ${rec[grade].join(", ")}</div>`));
+  wrap.appendChild(el(`<button class="add-card-btn edit-only" id="add-log-btn" style="margin-top:14px;">＋ 새 독서 기록 추가</button>`));
+
+  wrap.querySelectorAll(".edit-log").forEach(btn => {
+    btn.onclick = (e) => {
+      e.stopPropagation();
+      openReadingModal(DATA.readingLog.find(r => r.id === btn.dataset.id));
+    };
+  });
+
+  renderRecommendedBooks();
+}
+
+function openReadingModal(entry) {
+  const isNew = !entry;
+  openModal({
+    title: isNew ? "📖 새 독서 기록 추가" : "📖 독서 기록 수정",
+    values: entry || { semester: currentSemesterGuess() },
+    fields: [
+      { key: "semester", label: "학기 (예: 2026-1학기)" },
+      { key: "title", label: "책 제목" },
+      { key: "author", label: "저자" },
+      { key: "date", label: "읽은 날짜", type: "date" },
+      { key: "subjectLink", label: "교과 연계", type: "select", options: ["국어", "수학", "과학", "사회", "자유"] },
+      { key: "impact", label: "독서 감상문", type: "textarea" },
+      { key: "extendedActivity", label: "확장 활동 (관련해서 만든 작품 등)", type: "textarea" }
+    ],
+    onDelete: isNew ? null : () => {
+      DATA.readingLog = DATA.readingLog.filter(r => r.id !== entry.id);
+      saveData();
+    },
+    onSubmit: (out) => {
+      if (isNew) {
+        DATA.readingLog.push({ id: uid("r"), ...out });
+      } else {
+        Object.assign(entry, out);
+      }
+      saveData();
+    }
   });
 }
 
-/* ---------- 4. 나침반 (링크) ---------- */
+function currentSemesterGuess() {
+  const now = new Date();
+  const half = now.getMonth() < 6 ? "1학기" : "2학기";
+  return `${now.getFullYear()}-${half}`;
+}
+
+let bookGradeFilter = "초등학생";
+
+function renderRecommendedBooks() {
+  const box = document.getElementById("recommend-list");
+  box.innerHTML = "";
+  const rec = DATA.recommendedBooks || {};
+  const list = rec[bookGradeFilter] || [];
+  list.forEach(b => box.appendChild(el(`<div class="book-list-item">📗 ${b}</div>`)));
+}
+
+/* =========================================================================
+   4. 나침반 (링크, 폴더별)
+   ========================================================================= */
 function renderLinks() {
-  const grid = document.getElementById("links-grid");
-  grid.innerHTML = "";
-  (D.links || []).forEach(l => {
-    grid.appendChild(el(`
-      <a class="link-card" href="${l.url}" target="_blank" rel="noopener">
-        <span class="emoji">${l.icon || "🔗"}</span> ${l.title}
-      </a>
-    `));
+  const wrap = document.getElementById("links-wrap");
+  wrap.innerHTML = "";
+  const folders = DATA.linkFolders || [];
+
+  folders.forEach(folder => {
+    const items = (DATA.links || []).filter(l => l.folder === folder);
+    const block = el(`<div class="folder-block">
+      <span class="folder-title">📁 ${folder}</span>
+      <div class="folder-body">
+        <div class="card-grid link-grid"></div>
+      </div>
+    </div>`);
+    const grid = block.querySelector(".link-grid");
+
+    if (items.length === 0) {
+      grid.appendChild(el(`<span class="folder-empty">아직 링크가 없어요.</span>`));
+    }
+    items.forEach(l => {
+      const card = el(`
+        <a class="link-card" href="${l.url}" target="_blank" rel="noopener">
+          <span class="emoji">${l.icon || "🔗"}</span> ${l.title}
+        </a>
+      `);
+      const editBtn = el(`<button class="icon-btn danger edit-only" data-id="${l.id}" style="margin-left:auto;">🗑</button>`);
+      editBtn.addEventListener("click", (e) => {
+        e.preventDefault(); e.stopPropagation();
+        DATA.links = DATA.links.filter(x => x.id !== l.id);
+        saveData();
+      });
+      card.appendChild(editBtn);
+      grid.appendChild(card);
+    });
+    grid.appendChild(el(`<button class="add-card-btn edit-only" data-folder="${folder}">＋ ${folder}에 링크 추가</button>`));
+    wrap.appendChild(block);
+  });
+
+  wrap.querySelectorAll(".add-card-btn[data-folder]").forEach(btn => {
+    btn.onclick = () => openLinkModal(btn.dataset.folder);
+  });
+
+  wrap.appendChild(el(`<button class="add-card-btn edit-only" id="add-folder-btn" style="margin-top:6px;">📁＋ 새 폴더 추가</button>`));
+  document.getElementById("add-folder-btn")?.addEventListener("click", () => {
+    openModal({
+      title: "📁 새 폴더 추가",
+      fields: [{ key: "name", label: "폴더 이름" }],
+      onSubmit: (out) => {
+        if (out.name && !DATA.linkFolders.includes(out.name)) {
+          DATA.linkFolders.push(out.name);
+          saveData();
+        }
+      }
+    });
   });
 }
 
-/* ---------- 5. 도구상자 ---------- */
-function renderWordbook(query = "") {
+function openLinkModal(folder) {
+  openModal({
+    title: `🧭 ${folder} 폴더에 링크 추가`,
+    fields: [
+      { key: "title", label: "사이트 이름" },
+      { key: "url", label: "주소(URL)", type: "url" },
+      { key: "icon", label: "아이콘 (이모지 하나)", default: "🔗" }
+    ],
+    onSubmit: (out) => {
+      DATA.links.push({ id: uid("l"), folder, ...out });
+      saveData();
+    }
+  });
+}
+
+/* =========================================================================
+   5. 탐구 도구상자 — 영어 단어 (실시간 사전 검색) + 수학 노트
+   ========================================================================= */
+function renderWordbook() {
   const wrap = document.getElementById("wordbook-wrap");
   wrap.innerHTML = "";
-  const q = query.trim().toLowerCase();
-  const list = (D.wordbook || []).filter(w =>
-    !q || w.word.toLowerCase().includes(q) || w.meaning.includes(q)
-  );
-  list.forEach(w => {
-    wrap.appendChild(el(`
+  (DATA.wordbook || []).forEach(w => {
+    const card = el(`
       <div class="tool-card">
         <div class="word">${w.word}</div>
         <div class="meaning">${w.meaning}</div>
         ${w.example ? `<div class="example">"${w.example}"</div>` : ""}
+        <div class="card-actions edit-only">
+          <button class="icon-btn danger del-word" data-id="${w.id}">🗑</button>
+        </div>
       </div>
-    `));
+    `);
+    wrap.appendChild(card);
+  });
+  wrap.querySelectorAll(".del-word").forEach(btn => {
+    btn.onclick = () => {
+      DATA.wordbook = DATA.wordbook.filter(w => w.id !== btn.dataset.id);
+      saveData();
+    };
   });
 }
 
-function renderMathNotes(query = "") {
+async function searchDictionary(word) {
+  const statusEl = document.getElementById("dict-status");
+  const resultEl = document.getElementById("dict-result");
+  resultEl.innerHTML = "";
+  if (!word) return;
+  statusEl.textContent = `"${word}" 검색 중...`;
+  try {
+    const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word)}`);
+    if (!res.ok) throw new Error("not found");
+    const data = await res.json();
+    const entry = data[0];
+    const phonetic = entry.phonetic || (entry.phonetics || []).map(p => p.text).find(Boolean) || "";
+    const meaningObj = entry.meanings?.[0];
+    const def = meaningObj?.definitions?.[0];
+    statusEl.textContent = "";
+    resultEl.innerHTML = `
+      <span class="dr-word">${entry.word}</span><span class="dr-phonetic">${phonetic}</span>
+      <div class="dr-meaning"><b>[${meaningObj?.partOfSpeech || ""}]</b> ${def?.definition || "뜻을 찾을 수 없어요."}</div>
+      ${def?.example ? `<div class="dr-example">"${def.example}"</div>` : ""}
+      <div class="card-actions edit-only" style="margin-top:8px;">
+        <button class="qp-btn primary" id="add-to-wordbook-btn" style="padding:6px 14px;font-size:12.5px;">＋ 내 단어장에 추가</button>
+      </div>
+    `;
+    document.getElementById("add-to-wordbook-btn")?.addEventListener("click", () => {
+      DATA.wordbook.push({ id: uid("wb"), word: entry.word, meaning: def?.definition || "", example: def?.example || "" });
+      saveData();
+    });
+  } catch (err) {
+    statusEl.textContent = `"${word}"에 대한 사전 결과를 찾지 못했어요. 철자를 확인해보세요.`;
+  }
+}
+
+function renderMathNotes() {
   const wrap = document.getElementById("mathnotes-wrap");
   wrap.innerHTML = "";
-  const q = query.trim().toLowerCase();
-  const list = (D.mathNotes || []).filter(m =>
-    !q || m.name.toLowerCase().includes(q) || (m.when || "").includes(q)
-  );
+  const list = (DATA.mathNotes || []).filter(m => m.level === mathLevelFilter);
   list.forEach(m => {
     wrap.appendChild(el(`
       <div class="tool-card">
         <div class="formula">${m.formula}</div>
         <div class="meaning"><b>${m.name}</b> — ${m.when || ""}</div>
         ${m.relatedWork ? `<div class="example">🔗 관련 작품: ${m.relatedWork}</div>` : ""}
+        <div class="card-actions edit-only">
+          <button class="icon-btn edit-math" data-id="${m.id}">✏️</button>
+        </div>
       </div>
     `));
   });
+  wrap.appendChild(el(`<button class="add-card-btn edit-only" id="add-math-btn">＋ 개념/공식 추가</button>`));
+  wrap.querySelectorAll(".edit-math").forEach(btn => {
+    btn.onclick = () => openMathModal(DATA.mathNotes.find(m => m.id === btn.dataset.id));
+  });
 }
 
-/* ---------- 탭 전환 ---------- */
+function openMathModal(entry) {
+  const isNew = !entry;
+  openModal({
+    title: isNew ? "📐 개념/공식 추가" : "📐 개념/공식 수정",
+    values: entry || { level: mathLevelFilter },
+    fields: [
+      { key: "level", label: "학교급", type: "select", options: ["초등", "중등", "고등"] },
+      { key: "name", label: "개념/공식 이름" },
+      { key: "formula", label: "공식" },
+      { key: "when", label: "언제 쓰는지" },
+      { key: "relatedWork", label: "관련 작품 (선택)" }
+    ],
+    onDelete: isNew ? null : () => {
+      DATA.mathNotes = DATA.mathNotes.filter(m => m.id !== entry.id);
+      saveData();
+    },
+    onSubmit: (out) => {
+      if (isNew) DATA.mathNotes.push({ id: uid("m"), ...out });
+      else Object.assign(entry, out);
+      saveData();
+    }
+  });
+}
+
+/* =========================================================================
+   내보내기 / 불러오기 / GitHub 영구 반영용 코드 생성
+   ========================================================================= */
+function buildExportCode() {
+  return "const DEFAULT_DATA = " + JSON.stringify(DATA, null, 2) + ";";
+}
+
+function downloadBackup() {
+  const blob = new Blob([JSON.stringify(DATA, null, 2)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "qport-backup.json";
+  a.click();
+}
+
+function importBackup(file) {
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      DATA = JSON.parse(e.target.result);
+      saveData();
+    } catch (err) {
+      showToast("파일을 읽는 데 실패했어요 ⚠️");
+    }
+  };
+  reader.readAsText(file);
+}
+
+/* =========================================================================
+   탭 전환
+   ========================================================================= */
 function switchSection(target) {
   document.querySelectorAll(".section").forEach(s => s.classList.toggle("active", s.id === target));
   document.querySelectorAll(".stamp-tab").forEach(b => b.classList.toggle("active", b.dataset.target === target));
 }
 
-function switchSubtab(groupSelector, target, renderFn) {
-  document.querySelectorAll(`${groupSelector} .subtab-btn`).forEach(b =>
-    b.classList.toggle("active", b.dataset.filter === target)
-  );
-  renderFn(target);
-}
+let mathLevelFilter = "초등";
 
-/* ---------- 초기화 ---------- */
-document.addEventListener("DOMContentLoaded", () => {
+/* =========================================================================
+   전체 렌더 + 초기화
+   ========================================================================= */
+function renderAll() {
   renderProfile();
   renderWorks();
   renderReadingLog();
   renderLinks();
   renderWordbook();
   renderMathNotes();
+  const exportBox = document.getElementById("export-code");
+  if (exportBox) exportBox.value = buildExportCode();
+}
 
+document.addEventListener("DOMContentLoaded", async () => {
+  initFirebase();
+  DATA = await loadData();
+  renderAll();
+
+  // 편집모드 토글
+  document.getElementById("edit-toggle").addEventListener("click", () => {
+    document.body.classList.toggle("edit-mode");
+  });
+
+  // 탭
   document.querySelectorAll(".stamp-tab").forEach(btn => {
     btn.addEventListener("click", () => switchSection(btn.dataset.target));
   });
 
+  // 프로필
+  document.getElementById("edit-profile-btn").addEventListener("click", openProfileModal);
+  document.getElementById("photo-input").addEventListener("change", (e) => handlePhotoUpload(e.target.files[0]));
+  document.getElementById("remove-photo-btn").addEventListener("click", () => { DATA.profile.photo = null; saveData(); });
+
+  // 작품
+  document.getElementById("works-grid").addEventListener("click", (e) => {
+    if (e.target.id === "add-work-btn") openWorkModal(null);
+  });
   document.querySelectorAll("#works-subtabs .subtab-btn").forEach(btn => {
-    btn.addEventListener("click", () => switchSubtab("#works-subtabs", btn.dataset.filter, renderWorks));
+    btn.addEventListener("click", () => {
+      document.querySelectorAll("#works-subtabs .subtab-btn").forEach(b => b.classList.toggle("active", b === btn));
+      worksFilter = btn.dataset.filter;
+      renderWorks();
+    });
   });
 
-  document.getElementById("word-search").addEventListener("input", e => renderWordbook(e.target.value));
-  document.getElementById("math-search").addEventListener("input", e => renderMathNotes(e.target.value));
+  // 독서
+  document.getElementById("reading-log-wrap").addEventListener("click", (e) => {
+    if (e.target.id === "add-log-btn") openReadingModal(null);
+  });
+  document.querySelectorAll(".book-tab-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".book-tab-btn").forEach(b => b.classList.toggle("active", b === btn));
+      bookGradeFilter = btn.dataset.grade;
+      renderRecommendedBooks();
+    });
+  });
+
+  // 도구상자 - 영어
+  document.getElementById("dict-search-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    searchDictionary(document.getElementById("dict-input").value.trim());
+  });
+
+  // 도구상자 - 수학 레벨탭
+  document.querySelectorAll(".math-level-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".math-level-btn").forEach(b => b.classList.toggle("active", b === btn));
+      mathLevelFilter = btn.dataset.level;
+      renderMathNotes();
+    });
+  });
+
+  // 내보내기/불러오기
+  document.getElementById("copy-export-btn").addEventListener("click", () => {
+    const box = document.getElementById("export-code");
+    box.select();
+    document.execCommand("copy");
+    showToast("코드가 복사됐어요! (백업용 - 필요할 때 보관해두세요) 📋");
+  });
+  document.getElementById("download-backup-btn").addEventListener("click", downloadBackup);
+  document.getElementById("import-backup-input").addEventListener("change", (e) => importBackup(e.target.files[0]));
 });
 
-</script>
+  </script>
 </body>
 </html>
